@@ -1231,6 +1231,18 @@ NegativeGroup = [
                help="Test generator class for all negative tests"),
 ]
 
+hyperv_cluster_group = cfg.OptGroup(name="hyperv-cluster-scenario",
+                                    title="Hyper-V Cluster options")
+
+HyperVClusterScenarioGroup = [
+    cfg.StrOpt('win_user',
+               default='Administrator',
+               help="User for windows image"),
+    cfg.StrOpt('win_pass',
+               default='password',
+               help="Password for windows image"),
+]
+
 DefaultGroup = [
     cfg.StrOpt('resources_prefix',
                default='tempest',
@@ -1271,6 +1283,7 @@ _opts = [
     (baremetal_group, BaremetalGroup),
     (input_scenario_group, InputScenarioGroup),
     (negative_group, NegativeGroup),
+    (hyperv_cluster_group, HyperVClusterScenarioGroup),
     (None, DefaultGroup)
 ]
 
@@ -1340,6 +1353,7 @@ class TempestConfigPrivate(object):
         self.baremetal = _CONF.baremetal
         self.input_scenario = _CONF['input-scenario']
         self.negative = _CONF.negative
+        self.hyperv = _CONF['hyperv-cluster-scenario']
         _CONF.set_default('domain_name',
                           self.auth.default_credentials_domain_name,
                           group='identity')
